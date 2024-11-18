@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify - Web Player: Music for everyone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="./assets/logo.png">
+    <link rel="stylesheet" href="sytle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins&display=swap" rel="stylesheet">
+    
+    <style>
+         body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        background-color: white;
+        color: #fff;
+        overflow: hidden;
+    }
+    
+    .main {
+        display: flex;
+        height: 100vh;
+        margin: 0.5rem;
+    }
+    
+    .sidebar {
+        background-color: #f1f1f1  ;
+        width: 340px;
+        border-radius: 1rem;             
+        margin-right: 0.5rem;
+    }
+    
+    .main-content {
+        background-color: #121212;
+        flex: 1;
+        overflow: auto;
+        border-radius: 1rem;
+        padding: 0 1.5rem 0 1.5rem ;
+    }
+    
+    .music-player {
+        background-color: black;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
+        height: 72px;
+    }
+    
+    a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+    
+    .nav {
+        background-color: #121212;
+        border-radius: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100px;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .nav-option {
+        line-height: 2.5rem;
+        opacity: 0.7;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .nav-option:hover {
+        opacity: 1;
+    }
+    
+    .nav-option i {
+        font-size: 1.25rem;
+    
+    }
+    
+    .nav-option a {
+        font-size: 1rem;
+        margin-left: 1rem;
+    }
+    
+    
+    .library {
+        background-color: #121212;
+        border-radius: 1rem;
+        height: 100%;
+        margin-top: 0.5rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .lib-option img {
+        height: 1.25rem;
+        width: 1.25rem;
+    }
+    
+    .icons {
+        font-size: 1.25rem;
+        display: flex;
+    }
+    
+    .icons i {
+        opacity: 0.7 ;
+        margin-right: 1rem;
+    }
+    
+    .icons i:hover {
+        opacity: 1;
+    }
+    
+    .box {
+        background-color: #232323;
+        height: 8rem;
+        border-radius: 0.75rem;
+        margin: 0.75rem 0 1.75rem 0;
+        padding: 0.75rem 1.25rem;
+    }
+    
+    .box-p1 {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+    
+    .box-p2 {
+        font-size: 0.75rem;
+        opacity: 0.9;
+    }
+    
+    .badge {
+        background-color: #ffffff;
+        border: none;
+        border-radius: 100px;
+        padding: 0.25rem 1rem;
+        font-weight: 700;
+        margin-top: 0.5rem;
+        height: 2rem;
+        width: fit-content;
+    }
+    
+    .dark-badge {
+        background-color: #000;
+        color: #fff;
+    }
+    
+    .sticky-nav {
+        position: sticky;
+        top: 0;
+        background-color: #121212;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0 1rem 0;
+    }
+    
+    .sticky-nav-icons {
+        margin-left: 0.75rem;
+    }
+    
+    .sticky-nav-options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .sticky-nav-icons img {
+        height: 2rem;
+        width: 2rem;
+    }
+    
+    .nav-item {
+        margin-right: 1rem;
+    }
+    
+    .dark-badge i {
+        padding-right: 0.25rem;
+    }
+    
+    @media (max-width:1000px) {
+        .fwd-hide{
+            display: none;
+        }
+    }
+    
+    .card {
+        background-color: grey;
+        width: 150px;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-left: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .card img {
+        width: 100%;
+        border-radius: 0.5rem;
+    }
+    
+    .card-title {
+        font-weight: 600;
+    }
+    
+    .card-info {
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+    
+    .footer {
+        height: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+    }
+    
+    .line {
+        width: 90%;
+        height: 50%;
+        border-top: 2px solid #ffffff;
+        opacity: 0.4;
+    }
+    
+    .music-player {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .album {
+        width: 25%;
+    }
+    
+    .player {
+        width: 50%;
+    }
+    
+    .controls {
+        width: 25%;
+    }
+    
+    .player-controls {
+        margin-bottom: 0.5rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .player-control-icon {
+        height: 1rem;
+        margin-right: 1.75rem;
+        opacity: 0.7;
+    }
+    
+    .player-control-icon:hover {
+        opacity: 1;
+    }
+    
+    .playback-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .progress-bar{
+        width: 70%;
+        appearance: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    
+    .progress-bar::-webkit-slider-runnable-track {
+        background-color: #ddd;
+        border-radius: 100px;
+        height: 0.2rem;
+    }
+    
+    .progress-bar::-webkit-slider-thumb {
+        appearance: none;
+        height: 1rem;
+        width: 1rem;
+        background-color: #1bd760;
+        border-radius: 50%;
+        margin: -6px;
+    }
+    
+    .album {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .album-img {
+        height: 3rem;
+        width: 3rem;
+    }
+    
+    .album-seg-1 {
+        width: 25%;
+        height: 100%;
+        display: flex;
+        margin: 0.25rem 0 0.25rem 0;
+        margin-left: 3rem;
+    }
+    
+    .album-seg-2 {
+        display: flex;
+        flex-wrap: wrap;
+        width: 60%;
+    }
+    
+    .song-credits{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .album-seg-2 h4 {
+        font-size: 0.75rem;
+        width: 100%;
+        opacity: 0.7;
+        margin: 0.5rem 0 0.5rem 0.25rem;
+    }
+    
+    .album-seg-3 {
+        width: 15%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-right: 1rem;
+    }
+    
+    .album-icons {
+        height: 1rem;
+        margin: 0 0.25rem;
+        opacity: 0.7;
+    }
+    
+    .album-icons:hover {
+        opacity: 1;
+    }
+    
+    .controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 2.5rem 0 2.5rem ;
+    }
+    
+    .control-icons {
+        height: 1rem;
+        margin-right: 0.5rem;
+        opacity: 0.7;
+    }
+    
+    .control-icons:hover {
+        opacity: 1;
+    }
+    
+    .volume-bar {
+        width: 30%;
+        appearance: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    
+    .volume-bar::-webkit-slider-runnable-track{
+        background-color: #ddd;
+        border-radius: 100px;
+        height: 0.2rem;
+    }
+    
+    .volume-bar::-webkit-slider-thumb {
+        appearance: none;
+        height: 1rem;
+        width: 1rem;
+        background-color: #1bd760;
+        border-radius: 50%;
+        margin: -6px;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="sidebar">
+            <div class="nav">
+                <div class="nav-option" style="opacity:1">
+                    <i class="fa-solid fa-house"></i>
+                    <a href="#">Home</a>
+                </div>
+                <div class="nav-option">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <a href="#">Search</a>
+                </div>
+            </div>
+            <div class="library">
+                <div class="options">
+                    <div class="lib-option nav-option">
+                        <img src="library_icon.png">
+                        <a href="#">Your Library</a>
+                    </div>
+                    <div class="icons">
+                        <i class="fa-solid fa-plus"></i>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+                <div class="lib-box">
+                    <div class="box">
+                        <p class="box-p1">Create your first playlist</p>
+                        <p class="box-p2">It's easy we'll help you</p>
+                        <button class="badge">Create Playlist</button>
+                    </div>
+
+                    <div class="box">
+                        <p class="box-p1">Lets find some podcasts to follow</p>
+                        <p class="box-p2">We'll keep you updates on new episodes</p>
+                        <button class="badge">Browse podcasts</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="sticky-nav">
+                <div class="sticky-nav-icons">
+                    <a href="login.html" target="_blank">
+                    <img src="backward_icon.png"></a>
+                    <img src="forward_icon.png" class="fwd-hide">
+                </div>
+                <div class="sticky-nav-options">
+                    <button class="badge nav-item">Explore Premium</button>
+                    <button class="badge nav-item dark-badge"><i class="fa-regular fa-circle-down"></i>Install App</button>
+                    <i class="fa-regular fa-user nav-item"></i>
+                </div>
+            </div>
+
+            <h2>Recently Played</h2>
+            <div class="cards-container">
+            
+                <div class="card">
+                    <a href="[iSongs.info] 02 - Fear Song (1).mp3"
+                    target="_blank">
+                    <img src="red sea.jpg" class="card-img">
+                    </a>
+                    <p class="card-title">Fear song</p>
+                    <p class="card-info">Devara</p>
+                </div>
+                <div class="card">
+                    <a href="Cheques_320(PagalWorld.com.sb).mp3"
+                    target="_blank">
+                    <img src="cheques.jpg" class="card-img">
+                    </a>
+                    <p class="card-title">Cheques</p>
+                    <p class="card-info">Shubh music</p>
+                </div>
+
+            </div>
+
+
+            <h2>Featured Charts</h2>
+            <div class="cards-container">
+               
+                <div class="card">
+                    <img src="global.jpg" class="card-img">
+                    <p class="card-title">Top 50 - Global</p>
+                    <p class="card-info">Your daily updates of the most played...</p>
+                </div>
+
+                <div class="card">
+                    <img src="india.jpg" class="card-img">
+                    <p class="card-title">Top 50 - India</p>
+                    <p class="card-info">Your daily updates of the most played...</p>
+                </div>
+
+                <div class="card">
+                    <img src="telugu.jpg" class="card-img">
+                    <p class="card-title">Top 50 - Telugu</p>
+                    <p class="card-info">Your daily updates of the most played...</p>
+                </div>
+
+                <div class="card">
+                    <img src="hindi.jpg" class="card-img">
+                    <p class="card-title">Top 50  - Hindi</p>
+                    <p class="card-info">Your daily updates of the most played...</p>
+                </div>
+
+                <div class="card">
+                    <img src="punjabi.jpg" class="card-img">
+                    <p class="card-title">Top 50 - Punjabi</p>
+                    <p class="card-info">Your daily updates of the most played...</p>
+                </div>
+                <div class="card">
+                    <img src="tamil.jpg" class="card-img">
+                    <p class="card-title">Top 50 - Tamil</p>
+                    <p class="card-info">Your daily updates of the most played...</p>
+                </div>
+
+            </div>
+
+            <h2>Today's biggest hits</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <img src="song 1.jpg" class="card-img">
+                    <p class="card-title">Song-1</p>
+                    <p class="card-info">Put a smile on your face with these  tunes</p>
+                </div>
+
+                <div class="card">
+                    <img src="song 2.jpg" class="card-img">
+                    <p class="card-title">Song-2</p>
+                    <p class="card-info">Put a smile on your face with these  tunes</p>
+                </div>
+
+                <div class="card">
+                    <img src="song 3.jpg" class="card-img">
+                    <p class="card-title">Song-3</p>
+                    <p class="card-info">Put a smile on your face with these  tunes</p>
+                </div>
+                <div class="card">
+                    <img src="song 4.jpg" class="card-img">
+                    <p class="card-title">Song-4</p>
+                    <p class="card-info">Put a smile on your face with these  tunes</p>
+                </div>
+
+                <div class="card">
+                    <img src="Arjun REddy.jpg" class="card-img">
+                    <p class="card-title">Song-5</p>
+                    <p class="card-info">Put a smile on your face with these  tunes</p>
+                </div>
+
+                <div class="card">
+                    <img src="card2img.jpeg" class="card-img">
+                    <p class="card-title">Song-6</p>
+                    <p class="card-info">Put a smile on your face with these  tunes</p>
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <div class="line"></div>
+            </div>
+        </div>
+        <div class="music-player">
+            <div class="album">
+                <div class="album-seg-1">
+                    <a href="Telisiney Na Nuvvey - SenSongsMp3.Co.mp3"
+                    target="_blank">
+                    <img src="Arjun REddy.jpg" class="album-img"
+                    alt="Click to play audio"></a>
+                </div>
+                
+                <div class="album-seg-2">
+                    <div class="song-credits">
+                        <h4 class="song-title" style="opacity: 1;">Telisiney Na Nuvvey</h4>
+                    </div>
+                    <div class="song-credits">
+                        <h4 class="author">L.V.Revanth</h3>
+                    </div>
+                </div>
+
+                <div class="album-seg-3">
+                    <i class="fa-regular fa-heart album-icons"></i>
+                    <i class="fa-solid fa-images album-icons"></i>
+                </div>
+            </div>
+            <div class="player">
+                <div class="player-controls">
+                    <img src="player_icon1.png" class="player-control-icon">
+                    <img src="player_icon2.png" class="player-control-icon">
+                    <img src="player_icon3.png" class="player-control-icon" style="height: 2rem; opacity: 1;">
+                    <img src="player_icon4.png" class="player-control-icon">
+                    <img src="player_icon5.png" class="player-control-icon">
+                </div>
+                <div class="playback-bar">
+                    <span class="cur-time">00:00</span>
+                    <input type="range" class="progress-bar">
+                    <span class="Tot-time">03:33</span>
+                </div>
+            </div>
+            <div class="controls">
+                <i class="fa-solid fa-circle-play control-icons"></i>
+                <i class="fa-solid fa-microphone control-icons"></i>
+                <i class="fa-solid fa-bars control-icons"></i>
+                <i class="fa-solid fa-computer control-icons"></i>
+                <i class="fa-solid fa-volume-high control-icons"></i>
+                <input type="range" class="volume-bar">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

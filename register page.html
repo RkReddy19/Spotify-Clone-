@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+background-color: white;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+margin: 0;
+}
+
+.form-container {
+
+padding: 10px;
+border-radius: 20px;
+box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+width: 100%;
+max-width: 400px;
+}
+.form-container img{
+    width: 80px;
+    margin-bottom: 20px;
+    align-items: center;
+
+}
+
+.form-container h2 {
+text-align: center;
+margin border: 20px;
+
+}
+
+.form-group {
+margin-bottom: 15px;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 5px;
+font-weight: bold;
+}
+
+.form-group input {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-sizing: border-box;
+}
+
+.form-group input:focus {
+border-color: #007bff;
+}
+
+.submit-btn {
+width: 100%;
+padding: 10px;
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 16px;
+}
+
+.submit-btn:hover {
+background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+    <div class="form-container">
+       
+        <img src="logo.png" alt="Logo"> 
+    
+
+<div class="form-container">
+<h2>Register</h2>
+<form action="#" method="post">
+<div class="form-group">
+<label for="name">Name</label>
+<input type="text" id="name" name="name" required autofocus placeholder="Enter your name">
+</div>
+<div class="form-group">
+<label for="Phone number">Phone number</label>
+<input type="number" id="Phone number" name="Phone number" required autofocus placeholder="Enter your phone number">
+</div>
+<div class="form-group">
+<label for="email">Email</label>
+<input type="email" id="email" name="email" required autofocus placeholder="Enter your Email">
+</div>
+<div class="form-group">
+<label for="password">Password</label>
+<input type="password" id="password" name="password" required autofocus placeholder="Password">
+</div>
+<div class="form-group">
+<label for="confirm-password">Confirm Password</label>
+<input type="password" id="confirm-password" name="confirm-password" required autofocus placeholder="Enter password again ">
+</div>
+<button type="submit" class="submit-btn">Register</button>
+</form>
+</div>
+
+
+</body>
+</html>
